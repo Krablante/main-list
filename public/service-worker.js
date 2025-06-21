@@ -20,21 +20,12 @@ const urlsToCache = [
   'https://esm.sh/react-dom@^19.1.0/',
   'https://esm.sh/react@^19.1.0',
   'https://esm.sh/react@^19.1.0/',
-  // Background image
-  'https://images.unsplash.com/photo-1531685250784-55bc9ce07d82?auto=format&fit=crop&w=1920&q=80',
+  // Background image (REMOVED)
+  // 'https://images.unsplash.com/photo-1531685250784-55bc9ce07d82?auto=format&fit=crop&w=1920&q=80',
   // Icons (ensure these paths match your actual icon files)
-  '/public/icons/icon-72x72.png',
-  '/public/icons/icon-96x96.png',
-  '/public/icons/icon-128x128.png',
-  '/public/icons/icon-144x144.png',
-  '/public/icons/icon-152x152.png',
-  '/public/icons/icon-192x192.png',
-  '/public/icons/icon-384x384.png',
-  '/public/icons/icon-512x512.png',
-  '/public/icons/apple-touch-icon.png',
-  '/public/icons/favicon-32x32.png',
-  '/public/icons/favicon-16x16.png',
-  '/public/favicon.ico'
+  '/icon-192x192.png',
+  '/icon-512x512.png',
+  '../favicon.ico'
 ];
 
 self.addEventListener('install', event => {
