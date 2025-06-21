@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primal Nexus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="/public/manifest.json">
+  <meta name="theme-color" content="#030303">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Primal Nexus">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="/public/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/public/icons/icon-512x512.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/public/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/public/icons/favicon-16x16.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <style>
+    /* Custom scrollbar for a dark, Lovecraftian theme */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030303; /* Even darker track */
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2a2a2e; /* Darker thumb */
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3a3a3e; /* Slightly lighter hover */
+    }
+    body {
+      overscroll-behavior-y: contain;
+      background-image: url('https://images.unsplash.com/photo-1531685250784-55bc9ce07d82?auto=format&fit=crop&w=1920&q=80'); /* Added background image */
+      background-color: #1a1a1a; /* Solid dark background color - fallback */
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+
+    /* Star animations keyframes */
+    @keyframes twinkle { /* Kept for potential future use */
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* Enhanced Glitch Parent Effect */
+    @keyframes glitchParentEffect {
+      0%, 100% {
+        transform: translate(0, 0) skew(0, 0);
+        filter: brightness(1) contrast(1);
+      }
+      10% { transform: translate(-2px, 1px) skew(-0.5deg, 0.2deg); filter: brightness(1.1) contrast(1.05); }
+      20% { transform: translate(1px, -1px) skew(0.3deg, -0.4deg); }
+      30% { transform: translate(2px, 2px) skew(-0.2deg, 0.1deg); filter: brightness(0.9) contrast(0.95); }
+      40% { transform: translate(-1px, -2px) skew(0.4deg, -0.3deg); }
+      50% { transform: translate(0, 1px) skew(0, 0.2deg); filter: brightness(1.2) contrast(1.1); }
+      60% { transform: translate(1px, 0) skew(-0.1deg, 0); }
+      70% { transform: translate(-2px, 1px) skew(0.2deg, -0.2deg); filter: brightness(0.95) contrast(1); }
+      80% { transform: translate(1px, -1px) skew(-0.3deg, 0.3deg); }
+      90% { transform: translate(0px, 2px) skew(0.1deg, -0.1deg); filter: brightness(1.05) contrast(1.02); }
+    }
+
+    .glitch-active-parent {
+      animation-name: glitchParentEffect;
+      animation-duration: 0.25s; /* Should match JS glitchDuration for parent */
+      animation-timing-function: linear;
+      animation-iteration-count: 1;
+    }
+
+    /* Mega Glitch Effect for the entire page with CSS Custom Properties */
+    @keyframes megaGlitchEffect {
+      0%, 100% {
+        transform: translate(0, 0) skew(0, 0);
+        opacity: 1;
+        filter: invert(0) brightness(1) contrast(1) hue-rotate(0deg) grayscale(0);
+      }
+      10% {
+        transform: translate(var(--mega-tx-1, -15px), var(--mega-ty-1, 8px)) skew(var(--mega-skew-x-1, -3deg), var(--mega-skew-y-1, 1deg));
+        opacity: var(--mega-op-1, 0.8);
+        filter: invert(var(--mega-invert-1, 0.2)) brightness(var(--mega-bright-1, 1.3)) contrast(var(--mega-contrast-1, 1.2)) hue-rotate(var(--mega-hue-1, 20deg)) grayscale(var(--mega-gray-1, 0.1));
+      }
+      20% {
+        transform: translate(var(--mega-tx-2, 10px), var(--mega-ty-2, -12px)) skew(var(--mega-skew-x-2, 2deg), var(--mega-skew-y-2, -2.5deg));
+        filter: invert(var(--mega-invert-2, 0)) brightness(var(--mega-bright-2, 0.7)) contrast(var(--mega-contrast-2, 0.8)) hue-rotate(var(--mega-hue-2, -15deg)) grayscale(var(--mega-gray-2, 0));
+      }
+      30% {
+        transform: translate(var(--mega-tx-3, 20px), var(--mega-ty-3, 15px)) skew(var(--mega-skew-x-3, -1.5deg), var(--mega-skew-y-3, 0.5deg));
+        opacity: var(--mega-op-2, 0.9);
+        filter: invert(var(--mega-invert-3, 0.5)) brightness(var(--mega-bright-3, 1.5)) contrast(var(--mega-contrast-3, 1.5)) hue-rotate(var(--mega-hue-3, 45deg)) grayscale(var(--mega-gray-3, 0.3));
+      }
+      40% {
+        transform: translate(var(--mega-tx-4, -12px), var(--mega-ty-4, -18px)) skew(var(--mega-skew-x-4, 2.5deg), var(--mega-skew-y-4, -1deg));
+        filter: invert(var(--mega-invert-4, 0)) brightness(var(--mega-bright-4, 0.9)) contrast(var(--mega-contrast-4, 1.1)) hue-rotate(var(--mega-hue-4, 0deg)) grayscale(var(--mega-gray-4, 0));
+      }
+      50% { /* Peak of distortion */
+        transform: translate(var(--mega-tx-5, 5px), var(--mega-ty-5, 10px)) skew(var(--mega-skew-x-5, 0deg), var(--mega-skew-y-5, 3deg));
+        opacity: var(--mega-op-3, 0.7);
+        filter: invert(var(--mega-invert-5, 1)) brightness(var(--mega-bright-5, 1.8)) contrast(var(--mega-contrast-5, 2)) hue-rotate(var(--mega-hue-5, 180deg)) grayscale(var(--mega-gray-5, 0.5));
+      }
+      60% {
+        transform: translate(var(--mega-tx-6, 18px), var(--mega-ty-6, -8px)) skew(var(--mega-skew-x-6, -2deg), var(--mega-skew-y-6, 0.8deg));
+        filter: invert(var(--mega-invert-6, 0)) brightness(var(--mega-bright-6, 1.1)) contrast(var(--mega-contrast-6, 0.9)) hue-rotate(var(--mega-hue-6, 10deg)) grayscale(var(--mega-gray-6, 0));
+      }
+      70% {
+        transform: translate(var(--mega-tx-7, -22px), var(--mega-ty-7, 12px)) skew(var(--mega-skew-x-7, 1deg), var(--mega-skew-y-7, -1.5deg));
+        opacity: var(--mega-op-4, 0.85);
+        filter: invert(var(--mega-invert-7, 0.3)) brightness(var(--mega-bright-7, 0.8)) contrast(var(--mega-contrast-7, 1.3)) hue-rotate(var(--mega-hue-7, -30deg)) grayscale(var(--mega-gray-7, 0.2));
+      }
+      80% {
+        transform: translate(var(--mega-tx-8, 15px), var(--mega-ty-8, -15px)) skew(var(--mega-skew-x-8, -0.5deg), var(--mega-skew-y-8, 2deg));
+        filter: invert(var(--mega-invert-8, 0)) brightness(var(--mega-bright-8, 1.2)) contrast(var(--mega-contrast-8, 1)) hue-rotate(var(--mega-hue-8, 5deg)) grayscale(var(--mega-gray-8, 0));
+      }
+      90% {
+        transform: translate(var(--mega-tx-9, -10px), var(--mega-ty-9, 10px)) skew(var(--mega-skew-x-9, 1.5deg), var(--mega-skew-y-9, -0.5deg));
+        opacity: var(--mega-op-5, 0.95);
+        filter: invert(var(--mega-invert-9, 0.1)) brightness(var(--mega-bright-9, 0.95)) contrast(var(--mega-contrast-9, 1.05)) hue-rotate(var(--mega-hue-9, -10deg)) grayscale(var(--mega-gray-9, 0.05));
+      }
+    }
+
+    .mega-glitch-active {
+      animation-name: megaGlitchEffect;
+      animation-duration: 0.3s;
+      animation-timing-function: linear;
+      animation-iteration-count: 1;
+    }
+
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react/": "https://esm.sh/react@^19.1.0/"
+  }
+}
+</script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        animation: {
+          'subtle-waver': 'subtleWaver 18s infinite ease-in-out',
+          'eerie-glow': 'eerieGlow 4s infinite alternate ease-in-out',
+          'star-twinkle': 'twinkle 3s infinite ease-in-out alternate',
+          'glitch-parent': 'glitchParentEffect 0.25s linear 1',
+          'mega-glitch': 'megaGlitchEffect 0.3s linear 1', // Added mega-glitch
+        },
+        keyframes: {
+          subtleWaver: {
+            '0%, 100%': { transform: 'skewX(0deg) skewY(0deg) scale(1)', opacity: '1' },
+            '20%': { transform: 'skewX(0.15deg) skewY(-0.05deg) scale(1.005)', opacity: '0.98' },
+            '40%': { transform: 'skewX(-0.08deg) skewY(0.12deg) scale(0.995)', opacity: '1' },
+            '60%': { transform: 'skewX(0.05deg) skewY(0.15deg) scale(1.005)', opacity: '0.98' },
+            '80%': { transform: 'skewX(-0.12deg) skewY(-0.08deg) scale(0.995)', opacity: '1' },
+          },
+          eerieGlow: {
+            '0%, 100%': {
+              textShadow: '0 0 4px rgba(220, 220, 255, 0.2), 0 0 8px rgba(200, 200, 255, 0.1), 0 0 1px rgba(240, 240, 255, 0.3)',
+            },
+            '50%': {
+              textShadow: '0 0 7px rgba(230, 230, 255, 0.35), 0 0 14px rgba(210, 210, 255, 0.2), 0 0 2px rgba(250, 250, 255, 0.4)',
+            },
+          },
+          twinkle: {
+            '0%, 100%': { opacity: '0.3' },
+            '50%': { opacity: '1' },
+           },
+           glitchParentEffect: { 
+            '0%, 100%': {
+              transform: 'translate(0, 0) skew(0, 0)',
+              filter: 'brightness(1) contrast(1)',
+            },
+            '10%': { transform: 'translate(-2px, 1px) skew(-0.5deg, 0.2deg)', filter: 'brightness(1.1) contrast(1.05)' },
+            '20%': { transform: 'translate(1px, -1px) skew(0.3deg, -0.4deg)' },
+            '30%': { transform: 'translate(2px, 2px) skew(-0.2deg, 0.1deg)', filter: 'brightness(0.9) contrast(0.95)' },
+            '40%': { transform: 'translate(-1px, -2px) skew(0.4deg, -0.3deg)' },
+            '50%': { transform: 'translate(0, 1px) skew(0, 0.2deg)', filter: 'brightness(1.2) contrast(1.1)' },
+            '60%': { transform: 'translate(1px, 0) skew(-0.1deg, 0)' },
+            '70%': { transform: 'translate(-2px, 1px) skew(0.2deg, -0.2deg)', filter: 'brightness(0.95) contrast(1)' },
+            '80%': { transform: 'translate(1px, -1px) skew(-0.3deg, 0.3deg)' },
+            '90%': { transform: 'translate(0px, 2px) skew(0.1deg, -0.1deg)', filter: 'brightness(1.05) contrast(1.02)' },
+          }
+          // Removed megaGlitchEffect keyframe definition from here as it's defined in the <style> tag
+        },
+      }
+    }
+  }
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="antialiased">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/public/service-worker.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(error => {
+            console.log('ServiceWorker registration failed: ', error);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
