@@ -132,7 +132,7 @@ function App(): React.JSX.Element {
         </section>
 
         {/* ПОДВАЛ */}
-        <footer className="w-full text-center py-8 mt-auto text-sm text-neutral-500 font-serif italic">
+        <footer className="w-full text-center py-8 mt-auto text-sm font-serif italic">
           Bello, non pace
         </footer>
       </div>
